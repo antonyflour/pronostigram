@@ -1,0 +1,7 @@
+notifications:
+  email:
+    recipients:
+      - antoniofarina1702@gmail.com
+      - luigimartire94@gmail.com
+    on_success: always
+    on_failure: always 
