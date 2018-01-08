@@ -6,6 +6,8 @@ android:
     - platform-tools
     - tools
     - sys-img-armeabi-v7a-android-26
+    - android-26
+    - build-tools-26.0.2
 
 before_install:
 - yes | sdkmanager "platforms;android-26"
