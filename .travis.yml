@@ -4,4 +4,10 @@ notifications:
       - antoniofarina1702@gmail.com
       - luigimartire94@gmail.com
     on_success: always
-    on_failure: always 
+    on_failure: always
+
+language: android
+  android:
+    components:
+      - build-tools-26.0.2
+      - android-26
