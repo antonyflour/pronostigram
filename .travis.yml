@@ -10,6 +10,7 @@ before_install:
 - yes | sdkmanager "platforms;android-26"
 
 
+
 notifications:
   email:
     recipients:
@@ -19,6 +20,7 @@ notifications:
     on_failure: always
 
 before_script:
+  - android list targets
   - echo no | android create avd --force -n test -t android-22 --abi armeabi-v7a
   - emulator -avd test -no-skin -no-audio -no-window &
   - android-wait-for-emulator
