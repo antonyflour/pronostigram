@@ -1,8 +1,9 @@
 language: android
-android:
-  components:
-    - build-tools-26.0.2
-    
+
+before_install:
+- yes | sdkmanager "platforms;android-26"
+
+
 notifications:
   email:
     recipients:
