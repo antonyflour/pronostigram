@@ -1,5 +1,11 @@
 language: android
 
+android:
+  components:
+    - tools
+    - platform-tools
+    - tools
+
 before_install:
 - yes | sdkmanager "platforms;android-26"
 
@@ -13,9 +19,7 @@ notifications:
     on_failure: always
 
 before_script:
-  - echo no | android create avd --force -n test -t android-26 --abi armeabi-v7a
+  - echo no | android create avd --force -n test -t android-22 --abi armeabi-v7a
   - emulator -avd test -no-skin -no-audio -no-window &
   - android-wait-for-emulator
-
-script:
-- ./gradlew connectedAndroidTest
+  - adb shell input keyevent 82 &
