@@ -7,7 +7,8 @@ notifications:
     on_failure: always
 
 language: android
-  android:
-    components:
-      - build-tools-26.0.2
-      - android-26
+
+android:
+  components:
+    - build-tools-26.0.2
+    - android-26
