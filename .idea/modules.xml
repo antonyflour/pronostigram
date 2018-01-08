@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\Luigi\ApkProjects\pronostigram\app\app.iml" filepath="C:\Users\Luigi\ApkProjects\pronostigram\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/pronostigram.iml" filepath="$PROJECT_DIR$/pronostigram.iml" />
+      <module fileurl="file://C:\Users\Luigi\ApkProjects\pronostigram\pronostigram.iml" filepath="C:\Users\Luigi\ApkProjects\pronostigram\pronostigram.iml" />
     </modules>
   </component>
 </project>
