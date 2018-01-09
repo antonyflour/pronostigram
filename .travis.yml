@@ -5,9 +5,9 @@ android:
     - tools
     - platform-tools
     - tools
-    - sys-img-armeabi-v7a-android-26
+    - sys-img-armeabi-v7a-google_apis-25
     - android-26
-    - build-tools-26.0.2
+    - build-tools-25.0.2
 
 before_install:
 - yes | sdkmanager "platforms;android-26"
@@ -20,11 +20,11 @@ notifications:
       - antoniofarina1702@gmail.com
       - luigimartire94@gmail.com
     on_success: always
-    on_failure: always
+    on_failure: never
 
 before_script:
   - android list targets
-  - echo no | android create avd --force -n test -t android-26 --abi sys-img-armeabi-v7a-android-26
+  - echo no | android create avd --force -n test -t android-25 --abi sys-img-armeabi-v7a-google_apis-25
   - emulator -avd test -no-skin -no-audio -no-window &
   - android-wait-for-emulator
-#  - adb shell input keyevent 82 &
+  - adb shell input keyevent 82 &
