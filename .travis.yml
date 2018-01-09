@@ -24,7 +24,7 @@ notifications:
 
 before_script:
   - android list targets
-  - echo no | android create avd --force -n test -t android-25 --abi sys-img-armeabi-v7a-google_apis-25
+  - echo no | android create avd -n test -t android-25 -b sys-img-armeabi-v7a-google_apis-25
   - emulator -avd test -no-skin -no-audio -no-window &
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
