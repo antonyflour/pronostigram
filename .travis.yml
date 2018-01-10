@@ -20,8 +20,8 @@ language: android
 #
 android:
   components:
-#    - tools
-#    - platform-tools
+    - tools
+    - platform-tools
     - build-tools-24.0.2
     - android-24
 #    - android-$EMULATOR_API_LEVEL
