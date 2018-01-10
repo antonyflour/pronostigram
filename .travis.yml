@@ -33,18 +33,18 @@ language: android
 #    - sys-img-armeabi-v7a-android-24
 #
 licenses:
-#  - android-sdk-preview-license-.+
-  - android-sdk-license-.+
-#  - google-gdk-license-.+
-#
-#notifications:
-#  email:
-#    recipients:
-#      - antoniofarina1702@gmail.com
-#      - luigimartire94@gmail.com
-#    on_success: always
-#    on_failure: never
-#
+  - 'android-sdk-preview-license-.+'
+  - 'android-sdk-license-.+'
+  - 'google-gdk-license-.+'
+
+notifications:
+  email:
+    recipients:
+      - antoniofarina1702@gmail.com
+      - luigimartire94@gmail.com
+    on_success: always
+    on_failure: never
+
 # # Emulator Management: Create, Start and Wait
 #before_script:
 #  - android list targets
