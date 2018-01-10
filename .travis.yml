@@ -20,10 +20,10 @@ language: android
 #
 android:
   components:
-    - tools
-    - platform-tools
-    - build-tools-24.0.2
-    - android-24
+#    - tools
+#    - platform-tools
+    - build-tools-26.0.2
+    - android-26
 #    - android-$EMULATOR_API_LEVEL
 #    #- extra-google-m2repository
 #    #- extra-android-m2repository # for design library
