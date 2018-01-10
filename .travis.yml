@@ -32,9 +32,9 @@ language: android
 #    #- sys-img-armeabi-v7a-addon-google_apis-google-$EMULATOR_API_LEVEL
 #    - sys-img-armeabi-v7a-android-24
 #
-#licenses:
+licenses:
 #  - android-sdk-preview-license-.+
-#  - android-sdk-license-.+
+  - android-sdk-license-.+
 #  - google-gdk-license-.+
 #
 #notifications:
