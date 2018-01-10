@@ -18,12 +18,12 @@ language: android
 #    - ANDROID_BUILD_TOOLS=24.0.2
 #    - ADB_INSTALL_TIMEOUT=5
 #
-#android:
-#  components:
+android:
+  components:
 #    - tools
 #    - platform-tools
-#    - build-tools-$ANDROID_BUILD_TOOLS
-#    - android-$ANDROID_API
+    - build-tools-26.0.2
+    - android-26
 #    - android-$EMULATOR_API_LEVEL
 #    #- extra-google-m2repository
 #    #- extra-android-m2repository # for design library
