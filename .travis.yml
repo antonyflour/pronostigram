@@ -46,6 +46,8 @@ notifications:
     on_success: always
     on_failure: never
 
+install: travis_wait 30 mvn install
+
 # # Emulator Management: Create, Start and Wait
 before_script:
   - android list targets
