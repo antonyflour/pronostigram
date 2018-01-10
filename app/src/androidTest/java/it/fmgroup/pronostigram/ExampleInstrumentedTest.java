@@ -39,7 +39,7 @@ public class ExampleInstrumentedTest {
         assertEquals("dovrebbero essere uguali", tv.getText().toString(), "Benvenuto!");
         activity.finish();
     }
-/*
+
     @Test
     public void provaTest1() {
         Activity activity = mActivityRule.getActivity();
@@ -47,5 +47,5 @@ public class ExampleInstrumentedTest {
         assertEquals("test che fallisce", tv.getText().toString(), "sbagliato");
         activity.finish();
     }
-*/
+
 }
