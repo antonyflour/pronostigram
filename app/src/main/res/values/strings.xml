@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Pronostigram</string>
+    <string name="welcome_string_IT">Benvenuto in\nPronostigram!</string>
+    <string name="button_entra_string_IT">ENTRA</string>
+    <string name="button_registrati_string_IT">REGISTRATI</string>
+
 </resources>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,13 +7,58 @@
     tools:context="it.fmgroup.pronostigram.MainActivity">
 
     <TextView
-        android:id="@+id/textview"
+        android:id="@+id/textview_welcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Benvenuto in Pronostigram!"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:text="@string/welcome_string_IT"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="30sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.137" />
 
-</android.support.constraint.ConstraintLayout>
+    <ImageView
+        android:id="@+id/imageView_logo"
+        android:layout_width="148dp"
+        android:layout_height="134dp"
+        android:layout_below="@+id/textview_welcome"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        app:srcCompat="@mipmap/logo"
+        tools:layout_editor_absoluteX="118dp"
+        tools:layout_editor_absoluteY="136dp" />
+
+    <Button
+        android:id="@+id/button_entra"
+        android:layout_width="318dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/button_registrati"
+        android:layout_below="@+id/button_registrati"
+        android:layout_marginTop="13dp"
+        android:background="@color/colorPrimaryDark"
+        android:text="@string/button_registrati_string_IT"
+        android:textColor="@android:color/white"
+        tools:layout_editor_absoluteX="33dp"
+        tools:layout_editor_absoluteY="389dp" />
+
+    <Button
+        android:id="@+id/button_registrati"
+        android:layout_width="318dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView_logo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="78dp"
+        android:background="@color/colorPrimaryDark"
+        android:text="@string/button_entra_string_IT"
+        android:textColor="@android:color/white"
+        tools:layout_editor_absoluteX="33dp"
+        tools:layout_editor_absoluteY="331dp" />
+
+</RelativeLayout>
