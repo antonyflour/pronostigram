@@ -1,7 +1,40 @@
 <resources>
     <string name="app_name">Pronostigram</string>
     <string name="welcome_string_IT">Benvenuto in\nPronostigram!</string>
+    <string name="login_string_IT">Accedi a\nPronostigram!</string>
     <string name="button_entra_string_IT">ENTRA</string>
     <string name="button_registrati_string_IT">REGISTRATI</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_login">Accedi</string>
+
+    <!-- Strings related to login -->
+    <string name="action_sign_in_IT">ACCEDI</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_confirm_email">Le due email devono corrispondere</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_invalid_confirm_password">Le due password devono corrispondere</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+
+    <!-- Strings related to registration -->
+    <string name="button_confirm_string_IT">CONFERMA</string>
+    <string name="registrazione_string_IT">Inserisci i tuoi dati!</string>
+    <string name="prompt_nome">Nome</string>
+    <string name="prompt_cognome">Cognome</string>
+    <string name="prompt_email_reg">Email</string>
+    <string name="prompt_email_reg_confirm">Conferma Email</string>
+    <string name="prompt_password_reg">Password</string>
+    <string name="prompt_password_reg_confirm">Conferma Password</string>
+
+
 
 </resources>
