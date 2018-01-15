@@ -49,6 +49,10 @@ public class MainActivity extends AppCompatActivity implements InitialFragment.O
         ft.commit();
 
 
+        FirebaseDatabase fb = FirebaseDatabase.getInstance();
+        DatabaseReference dr = fb.getReference();
+        dr.child("prova-luigi1").setValue("prova1");
+
     }
 
 
@@ -56,7 +60,5 @@ public class MainActivity extends AppCompatActivity implements InitialFragment.O
     public void onFragmentInteraction(Uri uri) {
 
     }
-
-   }
 
 }
