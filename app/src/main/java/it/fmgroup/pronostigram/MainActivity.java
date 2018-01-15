@@ -1,9 +1,16 @@
 package it.fmgroup.pronostigram;
 
+
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.net.Uri;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,51 +27,36 @@ import model.Match;
 import model.Pronostico;
 import model.User;
 
-public class MainActivity extends AppCompatActivity {
-    private Database db = new Database();
 
+public class MainActivity extends AppCompatActivity implements InitialFragment.OnFragmentInteractionListener {
+
+    Button button_entra;
+
+    InitialFragment fragment1 = new InitialFragment();
 
     TextView tv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        tv = (TextView) findViewById(R.id.textview);
-        tv.setText("prova");
-/*
-        User u = new User("user", "email@prova.it", "password", "nome",
-                "cognome", 10, 12);
 
-        Match m = new Match(1,"squadracasa","squadraospite", new Date());
-        Pronostico p = new Pronostico("idpronostico",u.getUsername(),"descrizione", m, "1x");
-        db.addPronostico(p);
-*/
+        // Begin the transaction
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        // Replace the contents of the container with the new fragment
+        ft.replace(R.id.framelayout_initial, fragment1);
+        // or ft.add(R.id.your_placeholder, new FooFragment());
+        // Complete the changes added above
+        ft.commit();
+
+
     }
 
 
-    public void buttonClicked(View view) {
- /*      User follower = new User("userFollower2", "email@follower.it2", "passwordfollower2",
-                "nomefollower2", "cognomefollower2", 1, 0);
-        User u = new User("user", "email@prova.it", "password", "nome",
-                "cognome", 10, 12);
+    @Override
+    public void onFragmentInteraction(Uri uri) {
 
-        Match m = new Match(1,"squadracasa","squadraospite", new Date());
-        Pronostico p = new Pronostico("idpronostic1o",u.getUsername(),"descrizione", m, "1x");
-        db.addFollower(p, follower.getUsername());
-*/
-
-/*
-       User us = new User("user", "email@prova.it", "password", "nome",
-                "cognome", 10, 12);
-        db.addUtente(us);
-
-*/
-
+    }
 
    }
-
-
-
-
 
 }
