@@ -3,6 +3,7 @@ package it.fmgroup.pronostigram;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -240,6 +241,9 @@ public class RegistrationActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     public void run() {
                         Toast.makeText(RegistrationActivity.this, "Registrazione Completata", Toast.LENGTH_SHORT).show();
+
+                        Intent i = new Intent(RegistrationActivity.this, LoginActivity.class);
+                        startActivity(i);
                     }
                 });
                 finish();

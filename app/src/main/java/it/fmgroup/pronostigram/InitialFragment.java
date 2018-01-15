@@ -75,6 +75,7 @@ public class InitialFragment extends Fragment {
             public void onClick(View v) {
                 Intent i = new Intent(getActivity(), LoginActivity.class);
                 startActivity(i);
+                getActivity().finish();
             }
         });
 
@@ -85,6 +86,7 @@ public class InitialFragment extends Fragment {
             public void onClick(View v) {
                 Intent i = new Intent(getActivity(), RegistrationActivity.class);
                 startActivity(i);
+                getActivity().finish();
             }
         });
 
