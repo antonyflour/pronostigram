@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "972885897277",
+    "firebase_url": "https://pronostigram.firebaseio.com",
+    "project_id": "pronostigram",
+    "storage_bucket": "pronostigram.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:972885897277:android:5d38350ae45462d2",
+        "android_client_info": {
+          "package_name": "it.fmgroup.pronostigram"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "972885897277-hpngeak9hjtb716v10688jctf4irov8l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "it.fmgroup.pronostigram",
+            "certificate_hash": "100992b7c49887272203f1549e2f6496ad8101c1"
+          }
+        },
+        {
+          "client_id": "972885897277-b5irl0im3qii9u7qstue9lp5p0eialhh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrYWoctFlSqPFkRHMaCBz1EesYUmmhWco"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "972885897277-b5irl0im3qii9u7qstue9lp5p0eialhh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

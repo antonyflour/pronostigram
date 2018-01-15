@@ -1,5 +1,10 @@
 package it.fmgroup.pronostigram;
 
+
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
 import android.net.Uri;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +12,21 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.Date;
+
+import controller.Database;
+import model.Match;
+import model.Pronostico;
+import model.User;
+
 
 public class MainActivity extends AppCompatActivity implements InitialFragment.OnFragmentInteractionListener {
 
@@ -14,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements InitialFragment.O
 
     InitialFragment fragment1 = new InitialFragment();
 
+    TextView tv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,5 +56,7 @@ public class MainActivity extends AppCompatActivity implements InitialFragment.O
     public void onFragmentInteraction(Uri uri) {
 
     }
+
+   }
 
 }
