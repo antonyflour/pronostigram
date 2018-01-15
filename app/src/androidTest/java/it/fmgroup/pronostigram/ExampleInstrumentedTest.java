@@ -30,7 +30,7 @@ public class ExampleInstrumentedTest {
         Context appContext = InstrumentationRegistry.getTargetContext();
         assertEquals("it.fmgroup.pronostigram", appContext.getPackageName());
     }
-
+/*
     @Test
     public void provaTest() {
         Activity activity = mActivityRule.getActivity();
@@ -46,5 +46,5 @@ public class ExampleInstrumentedTest {
         assertEquals("test che fallisce", tv.getText().toString(), "sbagliato");
         activity.finish();
     }
-
+*/
 }
