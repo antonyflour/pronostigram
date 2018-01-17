@@ -57,6 +57,5 @@ public class MainActivity extends AppCompatActivity implements InitialFragment.O
 
     }
 
-   }
-
 }
+
