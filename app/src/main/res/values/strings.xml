@@ -48,6 +48,11 @@
     <!-- Strings related to FeedActivity -->
     <string name="title_feed_activity">Daily Feeds</string>
     <string name="title_activity_settings">Settings</string>
+    <string name="string_match">SquadraCasa - SquadraOspite</string>
+    <string name="string_data_match">11/11/2011  15:45</string>
+    <string name="string_esito">1X</string>
+    <string name="string_num_followers">355</string>
+
 
     <!-- Strings related to Settings -->
 
