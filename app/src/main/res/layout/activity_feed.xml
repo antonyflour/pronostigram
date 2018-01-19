@@ -6,4 +6,11 @@
     android:layout_height="match_parent"
     tools:context="it.fmgroup.pronostigram.FeedActivity">
 
+    <TextView
+        android:id="@+id/textViewFeed"
+        android:layout_width="206dp"
+        android:layout_height="111dp"
+        android:text="TextView"
+        tools:layout_editor_absoluteX="93dp"
+        tools:layout_editor_absoluteY="175dp" />
 </android.support.constraint.ConstraintLayout>

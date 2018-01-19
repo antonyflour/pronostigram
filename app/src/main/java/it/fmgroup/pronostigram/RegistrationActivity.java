@@ -247,37 +247,14 @@ public class RegistrationActivity extends AppCompatActivity {
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
             createAccount(mEmail,mPassword,mName, mSurname);
-/*
-            try {
-                createAccount(mEmail,mPassword);
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
-*/
-
-            // TODO: register the new account here.
             return true;
         }
 
         @Override
         protected void onPostExecute(final Boolean success) {
             regTask = null;
-            showProgress(false);
-
-            if (success) {
-                if (user == null){
-                    //Toast.makeText(RegistrationActivity.this, "Utente nullo", Toast.LENGTH_SHORT).show();
-                    Log.e(TAG, "UTENTE NULLO");
-                }
-                else {
-
-                    Toast.makeText(RegistrationActivity.this, user.toString(), Toast.LENGTH_LONG).show();
-                }
-
-            } else Toast.makeText(RegistrationActivity.this, "Errore", Toast.LENGTH_SHORT).show();
+            showProgress(true);
         }
-
 
         @Override
         protected void onCancelled() {
@@ -285,7 +262,6 @@ public class RegistrationActivity extends AppCompatActivity {
             showProgress(false);
         }
     }
-
 
 
     private void createAccount(final String mEmail, final String mPassword, final String mName, final String mSurname) {
@@ -299,33 +275,41 @@ public class RegistrationActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
                             user = mAuth.getCurrentUser();
-                            User u = new User(mEmail.substring(0,mEmail.indexOf('@')),mEmail,mPassword,mName,mSurname,0,0);
+                            User u = new User(generateUsername(mEmail),mEmail,mPassword,mName,mSurname,0,0);
                             Log.d("CIAO",u.toString());
                             database.getReference("ciao").setValue("ciao");
                             reference = database.getReference("users/");
-                            reference.child(mEmail.substring(0,mEmail.indexOf('@'))).setValue(u);
+                            reference.child(generateUsername(mEmail)).setValue(u);
                             Log.d("ciao", "ho scritto nel db");
+                            startActivity(new Intent(RegistrationActivity.this.getApplicationContext(),FeedActivity.class));
                         } else {
-                                try {
-                                    throw task.getException();
-                                } catch(FirebaseAuthWeakPasswordException e) {
-                                    confirmPasswordView.setError(getString(R.string.error_weak_password));
-                                    confirmPasswordView.requestFocus();
-                                    Log.e(TAGEXCEPTION, e.getMessage());
-                                } catch(FirebaseAuthInvalidCredentialsException e) {
-                                    emailView.setError(getString(R.string.error_invalid_email));
-                                    emailView.requestFocus();
-                                    Log.e(TAGEXCEPTION, e.getMessage());
-                                } catch(FirebaseAuthUserCollisionException e) {
-                                    emailView.setError(getString(R.string.error_user_exists));
-                                    emailView.requestFocus();
-                                    Log.e(TAGEXCEPTION, e.getMessage());
-                                } catch(Exception e) {
-                                    Log.e(TAGEXCEPTION, e.getMessage());
+                            showProgress(false);
+                            try {
+                                throw task.getException();
+                            } catch(FirebaseAuthWeakPasswordException e) {
+                                confirmPasswordView.setError(getString(R.string.error_weak_password));
+                                confirmPasswordView.requestFocus();
+                                Log.e(TAGEXCEPTION, e.getMessage());
+                            } catch(FirebaseAuthInvalidCredentialsException e) {
+                                emailView.setError(getString(R.string.error_invalid_email));
+                                emailView.requestFocus();
+                                Log.e(TAGEXCEPTION, e.getMessage());
+                            } catch(FirebaseAuthUserCollisionException e) {
+                                emailView.setError(getString(R.string.error_user_exists));
+                                emailView.requestFocus();
+                                Log.e(TAGEXCEPTION, e.getMessage());
+                            } catch(Exception e) {
+                                Log.e(TAGEXCEPTION, e.getMessage());
                             }
                         }
 
                     }
                 });
+    }
+
+    private String generateUsername(String mEmail){
+        String username = mEmail.substring(0,mEmail.indexOf('@'));
+        username = username.replaceAll("\\.", "-");
+        return username;
     }
 }
