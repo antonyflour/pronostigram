@@ -40,6 +40,8 @@
     <string name="title_activity_feed">FeedActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="error_weak_password">Password troppo semplice</string>
+    <string name="error_user_exists">Email esistente</string>
 
     <!-- Strings related to searchview -->
     <string name="searchable_hint">Cerca</string>
