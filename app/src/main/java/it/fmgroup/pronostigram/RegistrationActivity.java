@@ -277,10 +277,8 @@ public class RegistrationActivity extends AppCompatActivity {
                             user = mAuth.getCurrentUser();
                             User u = new User(generateUsername(mEmail),mEmail,mPassword,mName,mSurname,0,0);
                             Log.d("CIAO",u.toString());
-                            database.getReference("ciao").setValue("ciao");
                             reference = database.getReference("users/");
                             reference.child(generateUsername(mEmail)).setValue(u);
-                            Log.d("ciao", "ho scritto nel db");
                             startActivity(new Intent(RegistrationActivity.this.getApplicationContext(),FeedActivity.class));
                         } else {
                             showProgress(false);
