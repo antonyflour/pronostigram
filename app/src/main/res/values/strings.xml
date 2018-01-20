@@ -55,6 +55,15 @@
     <string name="string_esito">1X</string>
     <string name="string_num_followers">355</string>
 
+    <!-- Strings related to ProfileActivity -->
+    <string name="title_profile_activity">Profilo</string>
+    <string name="email_profile_activity">Email</string>
+    <string name="nome_profile_activity">Nome</string>
+    <string name="cognome_profile_activity">Cognome</string>
+    <string name="pron_tot_profile_activity">Pronostici condivisi</string>
+    <string name="pron_vinti_profile_activity">Pronostici Vinti</string>
+
+
 
     <!-- Strings related to Settings -->
 

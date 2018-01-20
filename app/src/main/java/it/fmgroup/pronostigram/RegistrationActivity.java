@@ -45,8 +45,6 @@ public class RegistrationActivity extends AppCompatActivity {
     private FirebaseDatabase database;
     private DatabaseReference reference;
 
-    private UserRegistrationTask regTask = null;
-
     // UI references.
     private AutoCompleteTextView nameView;
     private AutoCompleteTextView surnameView;
@@ -99,9 +97,6 @@ public class RegistrationActivity extends AppCompatActivity {
 
 
     private void attemptRegistration() {
-        if (regTask != null) {
-            return;
-        }
 
         // Reset errors.
         nameView.setError(null);
@@ -172,9 +167,9 @@ public class RegistrationActivity extends AppCompatActivity {
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
-            showProgress(true);
-            regTask = new RegistrationActivity.UserRegistrationTask(name, surname, email, password);
-            regTask.execute((Void) null);
+
+            createAccount(email,password, name, surname);
+
         }
     }
 
@@ -225,47 +220,9 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
 
-    /**
-     * Represents an asynchronous login/registration task used to authenticate
-     * the user.
-     */
-    public class UserRegistrationTask extends AsyncTask<Void, Void, Boolean> {
-
-        private String mName;
-        private String mSurname;
-        private String mEmail;
-        private String mPassword;
-
-        UserRegistrationTask(String name, String surname, String email, String password) {
-            mName = name;
-            mSurname = surname;
-            mEmail = email;
-            mPassword = password;
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
-            createAccount(mEmail,mPassword,mName, mSurname);
-            return true;
-        }
-
-        @Override
-        protected void onPostExecute(final Boolean success) {
-            regTask = null;
-            showProgress(true);
-        }
-
-        @Override
-        protected void onCancelled() {
-            regTask = null;
-            showProgress(false);
-        }
-    }
-
-
     private void createAccount(final String mEmail, final String mPassword, final String mName, final String mSurname) {
         Log.d(TAG, "createAccount:" + mEmail);
+        showProgress(true);
         // [START create_user_with_email]
         mAuth.createUserWithEmailAndPassword(mEmail, mPassword)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -281,7 +238,7 @@ public class RegistrationActivity extends AppCompatActivity {
                             reference = database.getReference("users/");
                             reference.child(generateUsername(mEmail)).setValue(u);
                             Log.d("ciao", "ho scritto nel db");
-                            startActivity(new Intent(RegistrationActivity.this.getApplicationContext(),FeedActivity.class));
+                            startActivity(new Intent(RegistrationActivity.this,FeedActivity.class));
                         } else {
                             showProgress(false);
                             try {
