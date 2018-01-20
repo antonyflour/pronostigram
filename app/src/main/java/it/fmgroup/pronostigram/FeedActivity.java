@@ -15,6 +15,9 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -28,12 +31,17 @@ public class FeedActivity extends AppCompatActivity {
     private ImageButton buttonSettings;
     private ImageButton buttonSearch;
 
+    private FirebaseAuth mAuth;
+    FirebaseUser currentUser;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
 
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
 
         buttonProfile = (ImageButton) findViewById(R.id.button_profile);
         buttonProfile.setOnClickListener(new View.OnClickListener() {
