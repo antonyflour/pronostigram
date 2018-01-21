@@ -52,7 +52,7 @@ notifications:
 before_script:
   - android list targets
   - echo no | android create avd --force -n test -t android-24 --abi default/armeabi-v7a
-  - emulator -avd test -no-skin -no-window -no-audio &
+  - emulator -avd test &
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
 
