@@ -272,7 +272,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
-            showProgress(true);
+//            showProgress(true);
             mAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                         @Override
@@ -280,7 +280,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             if (task.isSuccessful()) {
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d("Login", "signInWithEmail:success");
-                                FirebaseUser user = mAuth.getCurrentUser();
+                                //FirebaseUser user = mAuth.getCurrentUser();
                                 startActivity(new Intent(LoginActivity.this, FeedActivity.class));
                             } else {
                                 // If sign in fails, display a message to the user.

@@ -1,6 +1,7 @@
 package it.fmgroup.pronostigram;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -14,9 +15,16 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
+import android.widget.TabHost;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,7 +40,9 @@ public class FeedActivity extends AppCompatActivity {
     private ImageButton buttonSearch;
 
     private FirebaseAuth mAuth;
-    FirebaseUser currentUser;
+    private FirebaseUser currentUser;
+
+    private FirebaseDatabase database;
 
 
     @Override
@@ -40,8 +50,8 @@ public class FeedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
 
-        mAuth = FirebaseAuth.getInstance();
-        currentUser = mAuth.getCurrentUser();
+
+        database = FirebaseDatabase.getInstance();
 
         buttonProfile = (ImageButton) findViewById(R.id.button_profile);
         buttonProfile.setOnClickListener(new View.OnClickListener() {
@@ -94,6 +104,25 @@ public class FeedActivity extends AppCompatActivity {
         listViewFeed.setAdapter(adapter);
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAuth = FirebaseAuth.getInstance();
+        //currentUser = mAuth.getCurrentUser();
+        mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                currentUser = firebaseAuth.getCurrentUser();
+                if (currentUser == null)
+                    Toast.makeText(FeedActivity.this, "UTENTE NULLO", Toast.LENGTH_LONG).show();
+                else
+                    Toast.makeText(FeedActivity.this, currentUser.getEmail(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+
+    }
+
     //prova
     public void onButtonShowPopupWindowClick(View view) {
 
@@ -101,9 +130,8 @@ public class FeedActivity extends AppCompatActivity {
         LinearLayout mainLayout = (LinearLayout) findViewById(R.id.linear_layout_feed);
 
         // inflate the layout of the popup window
-        LayoutInflater inflater = (LayoutInflater)
-                getSystemService(LAYOUT_INFLATER_SERVICE);
-        View popupView = inflater.inflate(R.layout.popup_window, null);
+        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+        final View popupView = inflater.inflate(R.layout.popup_window, null);
 
         // create the popup window
         int width = LinearLayout.LayoutParams.WRAP_CONTENT;
@@ -114,6 +142,46 @@ public class FeedActivity extends AppCompatActivity {
         // show the popup window
         popupWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
 
+
+//        DatabaseReference ref = database.getReference("matches/");
+
+
+//        List<Match>  listMatch = new ArrayList<Match>();
+        final ListView lvMatches = (ListView) popupView.findViewById(R.id.listViewMatchesPopup);
+        database.getReference("matches/").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<Match>  listMatch = new ArrayList<Match>();
+//                ListView lvMatches = (ListView) FeedActivity.this.findViewById(R.id.listViewMatchesPopup);
+                for ( DataSnapshot ds : dataSnapshot.getChildren()){
+                    Match m = ds.getValue(Match.class);
+                    if (m.getDataMatch().before(new Date())){
+                        listMatch.add(m);
+
+                    }
+                }
+                MatchAdapter matchAdapter = new MatchAdapter(popupView.getContext(), listMatch);
+                if (listMatch == null)
+                    Toast.makeText(FeedActivity.this, "listMatch null DIOCANE", Toast.LENGTH_LONG).show();
+                else
+                    Toast.makeText(FeedActivity.this, "Lunghezza lista: "+listMatch.size(), Toast.LENGTH_LONG).show();
+                if (matchAdapter == null)
+                    Toast.makeText(FeedActivity.this, "matchAdapter null DIOCANE", Toast.LENGTH_LONG).show();
+                if (lvMatches == null)
+                    Toast.makeText(FeedActivity.this, "listviewMatch null DIOCANE", Toast.LENGTH_LONG).show();
+                else
+                    lvMatches.setAdapter(matchAdapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+
         // dismiss the popup window when touched
         popupView.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -123,5 +191,31 @@ public class FeedActivity extends AppCompatActivity {
             }
         });
     }
+
+/*
+    private List<Match> downloadMatches(){
+        List<Match>  listMatch = new ArrayList<Match>();
+        DatabaseReference ref = database.getReference("matches");
+
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for ( DataSnapshot ds : dataSnapshot.getChildren()){
+                    Match m = ds.getValue(Match.class);
+                    if (m.getDataMatch().before(new Date()))
+                        listMatch.add(m);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+        return listMatch;
+    }
+*/
 
 }

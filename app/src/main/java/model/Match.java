@@ -9,7 +9,7 @@ import java.util.Date;
 public class Match {
 
     private int matchID;
-    private String squadraCasa, SquadraOspite;
+    private String squadraCasa, squadraOspite;
     private Date dataMatch;
 
     public Match(){}
@@ -17,7 +17,7 @@ public class Match {
     public Match(int matchID, String squadraCasa, String squadraOspite, Date dataMatch) {
         this.matchID = matchID;
         this.squadraCasa = squadraCasa;
-        SquadraOspite = squadraOspite;
+        this.squadraOspite = squadraOspite;
         this.dataMatch = dataMatch;
     }
 
@@ -38,11 +38,11 @@ public class Match {
     }
 
     public String getSquadraOspite() {
-        return SquadraOspite;
+        return squadraOspite;
     }
 
     public void setSquadraOspite(String squadraOspite) {
-        SquadraOspite = squadraOspite;
+        this.squadraOspite = squadraOspite;
     }
 
     public Date getDataMatch() {
@@ -51,5 +51,10 @@ public class Match {
 
     public void setDataMatch(Date dataMatch) {
         this.dataMatch = dataMatch;
+    }
+
+    @Override
+    public String toString(){
+        return (squadraCasa + " - " + squadraOspite);
     }
 }

@@ -65,6 +65,9 @@ public class MainActivity extends AppCompatActivity implements InitialFragment.O
    */
 
         mAuth = FirebaseAuth.getInstance();
+
+        Match m = new Match(3,"napoli3", "juve3", new Date());
+        FirebaseDatabase.getInstance().getReference("matches").child(String.valueOf(m.getMatchID())).setValue(m);
     }
 
 
