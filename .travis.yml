@@ -31,7 +31,9 @@ android:
 #    #- addon-google_apis-google-19 # google play services
 #    #- sys-img-armeabi-v7a-addon-google_apis-google-$ANDROID_API_LEVEL
 #    #- sys-img-armeabi-v7a-addon-google_apis-google-$EMULATOR_API_LEVEL
-    - sys-img-armeabi-v7a-android-24
+
+    ####- sys-img-armeabi-v7a-android-24
+    - sys-img-armeabi-v7a-google_apis-24
 #
 licenses:
   - android-sdk-preview-license-.+
@@ -51,7 +53,7 @@ notifications:
 before_script:
   - android list targets
   - echo no | android create avd --force -n test -t android-24 --abi default/armeabi-v7a
-  - emulator -avd test -no-window &
+  - emulator -avd test -no-window -no-audio &
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
 

@@ -40,7 +40,7 @@ public class ExampleInstrumentedTest {
         assertEquals("it.fmgroup.pronostigram", appContext.getPackageName());
     }
 
-    /*
+
     @Test
     public void testButtons() throws Exception {
         // Context of the app under test.
@@ -51,5 +51,5 @@ public class ExampleInstrumentedTest {
         onView(withId(R.id.textview_registrazione)).check(matches(isDisplayed()));
 
     }
-    */
+
 }
