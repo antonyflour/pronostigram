@@ -24,8 +24,7 @@ android:
 #    - platform-tools
     - build-tools-26.0.2
     - android-26
-    #- android-24
-    - android-19
+    - android-24
 #    - android-$EMULATOR_API_LEVEL
 #    #- extra-google-m2repository
 #    #- extra-android-m2repository # for design library
@@ -33,10 +32,8 @@ android:
 #    #- sys-img-armeabi-v7a-addon-google_apis-google-$ANDROID_API_LEVEL
 #    #- sys-img-armeabi-v7a-addon-google_apis-google-$EMULATOR_API_LEVEL
 
-    - sys-img-armeabi-v7a-google_apis-19
-    ####- sys-img-armeabi-v7a-android-24
-    ####- sys-img-armeabi-v7a-google_apis-24
-#
+    - sys-img-armeabi-v7a-android-24
+
 licenses:
   - android-sdk-preview-license-.+
   - android-sdk-license-.+
@@ -54,8 +51,7 @@ notifications:
 # # Emulator Management: Create, Start and Wait
 before_script:
   - android list targets
-  - echo no | android create avd --force -n test -t android-19 --abi google_apis/armeabi-v7a
-  #default/armeabi-v7a
+  - echo no | android create avd --force -n test -t android-24 --abi default/armeabi-v7a
   - emulator -avd test -no-window -no-audio &
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
