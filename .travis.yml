@@ -52,7 +52,7 @@ notifications:
 # # Emulator Management: Create, Start and Wait
 before_script:
   - android list targets
-  - echo no | android create avd --force -n test -t android-24 --abi default/armeabi-v7a
+  - echo no | android create avd --force -n test -t android-24 --abi google_apis/armeabi-v7a#default/armeabi-v7a
   - emulator -avd test -no-window -no-audio &
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
