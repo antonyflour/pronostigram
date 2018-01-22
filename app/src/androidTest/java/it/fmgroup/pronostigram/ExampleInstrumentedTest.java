@@ -12,12 +12,16 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static android.app.PendingIntent.getActivity;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.RootMatchers.withDecorView;
 import static android.support.test.espresso.matcher.ViewMatchers.isDescendantOfA;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.core.AllOf.allOf;
 import static org.junit.Assert.*;
 
@@ -48,7 +52,8 @@ public class ExampleInstrumentedTest {
         onView(withId(R.id.button_registrati)).perform(click());
 
         //check if the sign up screen is displayed by asserting that the first name edittext is displayed
-        onView(withId(R.id.textview_registrazione)).check(matches(isDisplayed()));
+        onView(withId(R.id.textview_registrazione)).inRoot(withDecorView(not(is(mActivityRule.getActivity().getWindow().getDecorView()))))
+                .check(matches(isDisplayed()));
 
     }
 
