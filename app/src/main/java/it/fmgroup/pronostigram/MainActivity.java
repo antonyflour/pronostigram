@@ -27,6 +27,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import controller.Database;
@@ -66,8 +68,13 @@ public class MainActivity extends AppCompatActivity implements InitialFragment.O
 
         mAuth = FirebaseAuth.getInstance();
 
-        Match m = new Match(3,"napoli3", "juve3", new Date());
-        FirebaseDatabase.getInstance().getReference("matches").child(String.valueOf(m.getMatchID())).setValue(m);
+        Match m = null;
+        try {
+            m = new Match(11,"napoli113", "juve11", new SimpleDateFormat("dd/MM/yyyy").parse("20/02/2018"));
+            FirebaseDatabase.getInstance().getReference("matches").child(String.valueOf(m.getMatchID())).setValue(m);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
 

@@ -126,6 +126,8 @@ public class FeedActivity extends AppCompatActivity {
     //prova
     public void onButtonShowPopupWindowClick(View view) {
 
+        startActivity(new Intent(this, MatchActivity.class));
+/*
         // get a reference to the already created main layout
         LinearLayout mainLayout = (LinearLayout) findViewById(R.id.linear_layout_feed);
 
@@ -190,6 +192,8 @@ public class FeedActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+*/
     }
 
 /*

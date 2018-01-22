@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +33,7 @@ public class MatchAdapter extends ArrayAdapter<Match> {
     }
 
     public MatchAdapter(@NonNull Context context, List<Match> match) {
-        super(context, R.layout.match_item);
+        super(context, R.layout.match_item, match);
         this.match = match;
     }
 
@@ -50,7 +51,7 @@ public class MatchAdapter extends ArrayAdapter<Match> {
 
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.list_item, parent, false);
+            convertView = inflater.inflate(R.layout.match_item, parent, false);
             viewHolder.textViewIncontro = (TextView) convertView.findViewById(R.id.textViewNomeMatch);
             viewHolder.textViewDataIncontro = (TextView) convertView.findViewById(R.id.textViewDataMatch);
 
@@ -61,16 +62,16 @@ public class MatchAdapter extends ArrayAdapter<Match> {
             viewHolder = (ViewHolder) convertView.getTag();
             result=convertView;
         }
-
-        viewHolder.textViewIncontro.setTextColor(getContext().getResources().getColor(R.color.colorPrimaryDark));
-        viewHolder.textViewDataIncontro.setTextColor(Color.RED);
-
         viewHolder.textViewIncontro.setText(match.toString());
         viewHolder.textViewDataIncontro.setText(new SimpleDateFormat("dd/MM/yyyy").format(match.getDataMatch()).toString());
 
+        viewHolder.textViewIncontro.setTextColor(getContext().getResources().getColor(R.color.colorPrimaryDark));
+        viewHolder.textViewDataIncontro.setTextColor(Color.GRAY);
+
+
 
         // Return the completed view to render on screen
-        return convertView;
+        return result;
 
     }
 }

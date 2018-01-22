@@ -1,0 +1,79 @@
+package it.fmgroup.pronostigram;
+
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import model.Match;
+
+public class MatchActivity extends AppCompatActivity {
+
+
+    private FirebaseDatabase database;
+    private FirebaseAuth auth;
+    private FirebaseUser currentUser;
+    private ListView lvMatches;
+    private List<Match> listMatch;
+
+    private MatchAdapter matchAdapter;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_match);
+
+
+        Match m1 = new Match(3,"napoli3", "juve3", new Date());
+        Match m2 = new Match(2,"napoli2", "juve2", new Date());
+        Match m3 = new Match(1,"napoli1", "juve1", new Date());
+
+        database = FirebaseDatabase.getInstance();
+        auth = FirebaseAuth.getInstance();
+        currentUser = auth.getCurrentUser();
+
+        lvMatches = (ListView) this.findViewById(R.id.listViewMatches);
+        listMatch = new ArrayList<Match>();
+
+        listMatch.add(m1);
+        listMatch.add(m2);
+        listMatch.add(m3);
+
+        matchAdapter = new MatchAdapter(this, listMatch);
+        lvMatches.setAdapter(matchAdapter);
+        database.getReference("matches/").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+//                ListView lvMatches = (ListView) FeedActivity.this.findViewById(R.id.listViewMatchesPopup);
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    Match m = ds.getValue(Match.class);
+                    if (!m.getDataMatch().before(new Date())) {
+                        listMatch.add(m);
+
+                    }
+                }
+                matchAdapter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        //lvMatches.setAdapter(matchAdapter);
+    }
+}
