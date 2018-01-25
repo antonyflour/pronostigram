@@ -49,7 +49,7 @@ public class ExampleInstrumentedTest {
     public void testButtons() throws Exception {
         // Context of the app under test.
         //locate and click on the login button
-        onView(withId(R.id.button_registrati)).perform(click());
+        onView(withId(R.id.button_registrati)).check(matches(isDisplayed()));
 
         //check if the sign up screen is displayed by asserting that the first name edittext is displayed
         //onView(withId(R.id.textview_registrazione)).inRoot(withDecorView(not(is(mActivityRule.getActivity().getWindow().getDecorView()))))
