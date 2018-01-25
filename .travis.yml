@@ -17,7 +17,7 @@ language: android
 #    - EMULATOR_API=24
 #    - ANDROID_BUILD_TOOLS=24.0.2
 #    - ADB_INSTALL_TIMEOUT=5
-
+#
 android:
   components:
 #    - tools
@@ -53,6 +53,4 @@ before_script:
   - echo no | android create avd --force -n test -t android-24 --abi default/armeabi-v7a
   - emulator -avd test -no-skin -no-window &
   - android-wait-for-emulator
-
-#after_success:
-#  - bash <(curl -s https://codecov.io/bash)
+  - adb shell input keyevent 82 &
