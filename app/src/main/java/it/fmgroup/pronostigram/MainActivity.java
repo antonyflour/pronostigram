@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements InitialFragment.O
 
         Match m = null;
         try {
-            m = new Match(11,"napoli113", "juve11", new SimpleDateFormat("dd/MM/yyyy").parse("20/02/2018"));
+            m = new Match("napoli113", "juve11", new SimpleDateFormat("dd/MM/yyyy").parse("20/02/2018"));
             FirebaseDatabase.getInstance().getReference("matches").child(String.valueOf(m.getMatchID())).setValue(m);
         } catch (ParseException e) {
             e.printStackTrace();

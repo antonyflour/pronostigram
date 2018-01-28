@@ -1,7 +1,11 @@
 package it.fmgroup.pronostigram;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -12,6 +16,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -35,11 +40,11 @@ public class MatchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_match);
 
-
+/*
         Match m1 = new Match(3,"napoli3", "juve3", new Date());
         Match m2 = new Match(2,"napoli2", "juve2", new Date());
         Match m3 = new Match(1,"napoli1", "juve1", new Date());
-
+*/
         database = FirebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
         currentUser = auth.getCurrentUser();
@@ -47,25 +52,23 @@ public class MatchActivity extends AppCompatActivity {
         lvMatches = (ListView) this.findViewById(R.id.listViewMatches);
         listMatch = new ArrayList<Match>();
 
+        /*
         listMatch.add(m1);
         listMatch.add(m2);
         listMatch.add(m3);
-
+*/
         matchAdapter = new MatchAdapter(this, listMatch);
         lvMatches.setAdapter(matchAdapter);
-        database.getReference("matches/").addValueEventListener(new ValueEventListener() {
+        database.getReference("matches/").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-//                ListView lvMatches = (ListView) FeedActivity.this.findViewById(R.id.listViewMatchesPopup);
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     Match m = ds.getValue(Match.class);
                     if (!m.getDataMatch().before(new Date())) {
                         listMatch.add(m);
-
                     }
                 }
                 matchAdapter.notifyDataSetChanged();
-
             }
 
             @Override
@@ -74,6 +77,17 @@ public class MatchActivity extends AppCompatActivity {
             }
         });
 
-        //lvMatches.setAdapter(matchAdapter);
+        lvMatches.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Match m = (Match) parent.getItemAtPosition(position);
+                Log.d("sceltamatch", m.toString());
+
+                Intent i = new Intent(MatchActivity.this, PronosticoActivity.class);
+                i.putExtra(getString(R.string.matchId), m.getMatchID());
+                startActivity(i);
+            }
+        });
+
     }
 }

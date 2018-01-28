@@ -1,7 +1,6 @@
 package it.fmgroup.pronostigram;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -9,14 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
 import model.Match;
-import model.Pronostico;
 
 /**
  * Created by Luigi on 20/01/2018.
@@ -63,7 +61,8 @@ public class MatchAdapter extends ArrayAdapter<Match> {
             result=convertView;
         }
         viewHolder.textViewIncontro.setText(match.toString());
-        viewHolder.textViewDataIncontro.setText(new SimpleDateFormat("dd/MM/yyyy").format(match.getDataMatch()).toString());
+        String data = new SimpleDateFormat("dd/MM/yyyy").format(match.getDataMatch());
+        viewHolder.textViewDataIncontro.setText(data);
 
         viewHolder.textViewIncontro.setTextColor(getContext().getResources().getColor(R.color.colorPrimaryDark));
         viewHolder.textViewDataIncontro.setTextColor(Color.GRAY);

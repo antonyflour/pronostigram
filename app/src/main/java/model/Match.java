@@ -1,5 +1,7 @@
 package model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -8,24 +10,24 @@ import java.util.Date;
 
 public class Match {
 
-    private int matchID;
+    private String matchID;
     private String squadraCasa, squadraOspite;
     private Date dataMatch;
 
     public Match(){}
 
-    public Match(int matchID, String squadraCasa, String squadraOspite, Date dataMatch) {
-        this.matchID = matchID;
+    public Match(String squadraCasa, String squadraOspite, Date dataMatch) {
+        this.matchID = Util.generateMatchID();
         this.squadraCasa = squadraCasa;
         this.squadraOspite = squadraOspite;
         this.dataMatch = dataMatch;
     }
 
-    public int getMatchID() {
+    public String getMatchID() {
         return matchID;
     }
 
-    public void setMatchID(int matchID) {
+    public void setMatchID(String matchID) {
         this.matchID = matchID;
     }
 

@@ -94,7 +94,7 @@ public class FeedActivity extends AppCompatActivity {
 
         for(int i=0; i<100; i++){
             listPronostici.add(new Pronostico( String.valueOf(i),"boh", "SquadraCasa - SquadraOspite "+i, null, "1X"));
-            listMatch.add(new Match(i, "Squadra1", "Squadra2", new Date()));
+            listMatch.add(new Match("Squadra1", "Squadra2", new Date()));
         }
 
 

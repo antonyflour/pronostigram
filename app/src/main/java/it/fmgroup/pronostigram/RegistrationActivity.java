@@ -34,6 +34,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import controller.Database;
 import model.User;
+import model.Util;
 
 public class RegistrationActivity extends AppCompatActivity {
 
@@ -275,10 +276,10 @@ public class RegistrationActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
                             user = mAuth.getCurrentUser();
-                            User u = new User(generateUsername(mEmail),mEmail,mPassword,mName,mSurname,0,0);
+                            User u = new User(Util.generateUsername(mEmail),mEmail,mPassword,mName,mSurname,0,0);
                             Log.d("CIAO",u.toString());
                             reference = database.getReference("users/");
-                            reference.child(generateUsername(mEmail)).setValue(u);
+                            reference.child(Util.generateUsername(mEmail)).setValue(u);
                             startActivity(new Intent(RegistrationActivity.this.getApplicationContext(),FeedActivity.class));
                         } else {
                             showProgress(false);
@@ -305,9 +306,5 @@ public class RegistrationActivity extends AppCompatActivity {
                 });
     }
 
-    private String generateUsername(String mEmail){
-        String username = mEmail.substring(0,mEmail.indexOf('@'));
-        username = username.replaceAll("\\.", "-");
-        return username;
-    }
+
 }
