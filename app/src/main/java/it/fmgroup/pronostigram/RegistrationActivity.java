@@ -92,7 +92,10 @@ public class RegistrationActivity extends AppCompatActivity {
         });
 
         mLoginFormView = findViewById(R.id.registration_form);
-        mProgressView = findViewById(R.id.registration_progress);
+
+        //mProgressView = findViewById(R.id.registration_progress);
+        mProgressView = new util.FakeProgressBar(this);
+        mProgressView.setId(R.id.registration_progress);
     }
 
 

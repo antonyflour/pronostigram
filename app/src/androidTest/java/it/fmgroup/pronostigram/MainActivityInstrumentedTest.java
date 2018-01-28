@@ -32,10 +32,9 @@ import static org.junit.Assert.*;
  */
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class ExampleInstrumentedTest {
+public class MainActivityInstrumentedTest {
 
     @Rule public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<MainActivity>(MainActivity.class);
-    @Rule public ActivityTestRule<RegistrationActivity> mActivityRule2 = new ActivityTestRule<RegistrationActivity>(RegistrationActivity.class);
 
 
     @Test
@@ -47,14 +46,23 @@ public class ExampleInstrumentedTest {
 
 
     @Test
-    public void testButtons() throws Exception {
-        // Context of the app under test.
-        //locate and click on the login button
-        onView(withId(R.id.button_registrati)).check(matches(isDisplayed()));
-        //onView(withId(R.id.button_registrati)).perform(click());
-        //check if the sign up screen is displayed by asserting that the first name edittext is displayed
-        //onView(withId(R.id.textview_registrazione)).inRoot(withDecorView(not(is(mActivityRule2.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
+    public void testTextViewWelcome() throws Exception {
+        onView(withId(R.id.textview_welcome)).check(matches(isDisplayed()));
+    }
 
+    @Test
+    public void testButtonRegistrati() throws Exception {
+        onView(withId(R.id.button_registrati)).check(matches(isDisplayed()));
+        onView(withId(R.id.button_registrati)).perform(click());
+        onView(withId(R.id.textview_registrazione)).check(matches(isDisplayed()));
+
+    }
+
+    @Test
+    public void testButtonEntra() throws Exception {
+        onView(withId(R.id.button_entra)).check(matches(isDisplayed()));
+        onView(withId(R.id.button_entra)).perform(click());
+        onView(withId(R.id.textview_login)).check(matches(isDisplayed()));
     }
 
 }
