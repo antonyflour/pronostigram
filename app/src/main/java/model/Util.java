@@ -1,5 +1,8 @@
 package model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -20,5 +23,10 @@ public class Util {
 
     public static String generatePronosticoID(){
         return UUID.randomUUID().toString();
+    }
+
+    public static boolean isBefore(String date1, Date date2) throws ParseException {
+        Date d1 = new SimpleDateFormat("dd/MM/yyyy").parse(date1);
+        return d1.before(date2);
     }
 }

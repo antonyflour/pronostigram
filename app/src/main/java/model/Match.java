@@ -12,11 +12,11 @@ public class Match {
 
     private String matchID;
     private String squadraCasa, squadraOspite;
-    private Date dataMatch;
+    private String dataMatch;
 
     public Match(){}
 
-    public Match(String squadraCasa, String squadraOspite, Date dataMatch) {
+    public Match(String squadraCasa, String squadraOspite, String dataMatch) {
         this.matchID = Util.generateMatchID();
         this.squadraCasa = squadraCasa;
         this.squadraOspite = squadraOspite;
@@ -47,11 +47,11 @@ public class Match {
         this.squadraOspite = squadraOspite;
     }
 
-    public Date getDataMatch() {
+    public String getDataMatch() {
         return dataMatch;
     }
 
-    public void setDataMatch(Date dataMatch) {
+    public void setDataMatch(String dataMatch) {
         this.dataMatch = dataMatch;
     }
 

@@ -61,7 +61,7 @@ public class MatchAdapter extends ArrayAdapter<Match> {
             result=convertView;
         }
         viewHolder.textViewIncontro.setText(match.toString());
-        String data = new SimpleDateFormat("dd/MM/yyyy").format(match.getDataMatch());
+        String data = match.getDataMatch();
         viewHolder.textViewDataIncontro.setText(data);
 
         viewHolder.textViewIncontro.setTextColor(getContext().getResources().getColor(R.color.colorPrimaryDark));

@@ -69,12 +69,8 @@ public class MainActivity extends AppCompatActivity implements InitialFragment.O
         mAuth = FirebaseAuth.getInstance();
 
         Match m = null;
-        try {
-            m = new Match("napoli113", "juve11", new SimpleDateFormat("dd/MM/yyyy").parse("20/02/2018"));
+            m = new Match("napoli113", "juve11", "20/02/2018");
             FirebaseDatabase.getInstance().getReference("matches").child(String.valueOf(m.getMatchID())).setValue(m);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
     }
 
 

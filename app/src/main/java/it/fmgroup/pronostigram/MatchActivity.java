@@ -22,6 +22,7 @@ import java.util.Date;
 import java.util.List;
 
 import model.Match;
+import model.Util;
 
 public class MatchActivity extends AppCompatActivity {
 
@@ -64,11 +65,16 @@ public class MatchActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     Match m = ds.getValue(Match.class);
-                    if (!m.getDataMatch().before(new Date())) {
-                        listMatch.add(m);
+                    try {
+                        if (!Util.isBefore(m.getDataMatch(),new Date())){
+                            listMatch.add(m);
+                        }
+                    } catch (ParseException e) {
+                        Toast.makeText(MatchActivity.this, "Errore nella data", Toast.LENGTH_SHORT).show();
+                        Log.e("ParseError", e.getMessage());
                     }
+                    matchAdapter.notifyDataSetChanged();
                 }
-                matchAdapter.notifyDataSetChanged();
             }
 
             @Override

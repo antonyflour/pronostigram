@@ -26,6 +26,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -94,7 +95,7 @@ public class FeedActivity extends AppCompatActivity {
 
         for(int i=0; i<100; i++){
             listPronostici.add(new Pronostico( String.valueOf(i),"boh", "SquadraCasa - SquadraOspite "+i, null, "1X"));
-            listMatch.add(new Match("Squadra1", "Squadra2", new Date()));
+            listMatch.add(new Match("Squadra1", "Squadra2", new SimpleDateFormat("dd/MM/yyyy").format(new Date())));
         }
 
 
