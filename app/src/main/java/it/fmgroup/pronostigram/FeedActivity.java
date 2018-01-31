@@ -1,6 +1,7 @@
 package it.fmgroup.pronostigram;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -14,13 +15,26 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
+import android.widget.TabHost;
+import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import model.Match;
 import model.Pronostico;
+import model.Util;
 
 public class FeedActivity extends AppCompatActivity {
 
@@ -28,12 +42,39 @@ public class FeedActivity extends AppCompatActivity {
     private ImageButton buttonSettings;
     private ImageButton buttonSearch;
 
+    private FirebaseAuth mAuth;
+    private FirebaseUser currentUser;
+
+    private FirebaseDatabase database;
+    private List<Pronostico> pronostici = new ArrayList<>();
+    private List<Match> incontri = new ArrayList<>();
+    private FeedAdapter adapter;
+    private ListView listViewFeed;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
 
+
+
+        mAuth = FirebaseAuth.getInstance();
+        mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                currentUser = firebaseAuth.getCurrentUser();
+                if (currentUser == null)
+                    Toast.makeText(FeedActivity.this, "UTENTE NULLO", Toast.LENGTH_LONG).show();
+                else
+                    Toast.makeText(FeedActivity.this, currentUser.getEmail(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+        database = FirebaseDatabase.getInstance();
+
+        downloadMatches();
+        downloadPronostici();
 
         buttonProfile = (ImageButton) findViewById(R.id.button_profile);
         buttonProfile.setOnClickListener(new View.OnClickListener() {
@@ -65,37 +106,57 @@ public class FeedActivity extends AppCompatActivity {
         }
         */
 
-        ListView listViewFeed = (ListView) findViewById(R.id.list_view_feed);
-
+        listViewFeed = (ListView) findViewById(R.id.list_view_feed);
         //ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
          //       R.layout.list_item, R.id.textview_match, values);
 
 
+        /*
         List<Pronostico> listPronostici = new ArrayList<Pronostico>();
         List<Match>  listMatch = new ArrayList<Match>();
-
         for(int i=0; i<100; i++){
             listPronostici.add(new Pronostico( String.valueOf(i),"boh", "SquadraCasa - SquadraOspite "+i, null, "1X"));
-            listMatch.add(new Match(i, "Squadra1", "Squadra2", new Date()));
+            listMatch.add(new Match("Squadra1", "Squadra2", new SimpleDateFormat("dd/MM/yyyy").format(new Date())));
         }
-
-
         FeedAdapter adapter = new FeedAdapter(this, listPronostici, listMatch);
-
+*/
+        adapter = new FeedAdapter(this, pronostici, incontri);
         // Assign adapter to ListView
         listViewFeed.setAdapter(adapter);
     }
 
+/*
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAuth = FirebaseAuth.getInstance();
+        //currentUser = mAuth.getCurrentUser();
+        mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                currentUser = firebaseAuth.getCurrentUser();
+                if (currentUser == null)
+                    Toast.makeText(FeedActivity.this, "UTENTE NULLO", Toast.LENGTH_LONG).show();
+                else
+                    Toast.makeText(FeedActivity.this, currentUser.getEmail(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+
+    }
+*/
+
     //prova
     public void onButtonShowPopupWindowClick(View view) {
 
+        startActivity(new Intent(this, MatchActivity.class));
+/*
         // get a reference to the already created main layout
         LinearLayout mainLayout = (LinearLayout) findViewById(R.id.linear_layout_feed);
 
         // inflate the layout of the popup window
-        LayoutInflater inflater = (LayoutInflater)
-                getSystemService(LAYOUT_INFLATER_SERVICE);
-        View popupView = inflater.inflate(R.layout.popup_window, null);
+        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+        final View popupView = inflater.inflate(R.layout.popup_window, null);
 
         // create the popup window
         int width = LinearLayout.LayoutParams.WRAP_CONTENT;
@@ -106,6 +167,46 @@ public class FeedActivity extends AppCompatActivity {
         // show the popup window
         popupWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
 
+
+//        DatabaseReference ref = database.getReference("matches/");
+
+
+//        List<Match>  listMatch = new ArrayList<Match>();
+        final ListView lvMatches = (ListView) popupView.findViewById(R.id.listViewMatchesPopup);
+        database.getReference("matches/").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<Match>  listMatch = new ArrayList<Match>();
+//                ListView lvMatches = (ListView) FeedActivity.this.findViewById(R.id.listViewMatchesPopup);
+                for ( DataSnapshot ds : dataSnapshot.getChildren()){
+                    Match m = ds.getValue(Match.class);
+                    if (m.getDataMatch().before(new Date())){
+                        listMatch.add(m);
+
+                    }
+                }
+                MatchAdapter matchAdapter = new MatchAdapter(popupView.getContext(), listMatch);
+                if (listMatch == null)
+                    Toast.makeText(FeedActivity.this, "listMatch null DIOCANE", Toast.LENGTH_LONG).show();
+                else
+                    Toast.makeText(FeedActivity.this, "Lunghezza lista: "+listMatch.size(), Toast.LENGTH_LONG).show();
+                if (matchAdapter == null)
+                    Toast.makeText(FeedActivity.this, "matchAdapter null DIOCANE", Toast.LENGTH_LONG).show();
+                if (lvMatches == null)
+                    Toast.makeText(FeedActivity.this, "listviewMatch null DIOCANE", Toast.LENGTH_LONG).show();
+                else
+                    lvMatches.setAdapter(matchAdapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+
         // dismiss the popup window when touched
         popupView.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -114,6 +215,55 @@ public class FeedActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+*/
+    }
+
+
+    private void downloadMatches(){
+        DatabaseReference ref = database.getReference("matches");
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for ( DataSnapshot ds : dataSnapshot.getChildren()){
+                    Match m = ds.getValue(Match.class);
+                    try {
+                        if (Util.isBefore(m.getDataMatch(),new Date()))
+                            incontri.add(m);
+                    } catch (ParseException e) {
+                        Toast.makeText(FeedActivity.this, "Errore nella data", Toast.LENGTH_SHORT).show();
+                        Log.e("ParseError", e.getMessage());
+                    }
+                    adapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        Log.d("Downlaod","Download Matches effettuato");
+    }
+
+    private void downloadPronostici(){
+        DatabaseReference ref = database.getReference("pronostici");
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for ( DataSnapshot ds : dataSnapshot.getChildren()){
+                    Pronostico p = ds.getValue(Pronostico.class);
+                    pronostici.add(p);
+                    adapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        Log.d("Downlaod","Download Pronostici effettuato");
     }
 
 }

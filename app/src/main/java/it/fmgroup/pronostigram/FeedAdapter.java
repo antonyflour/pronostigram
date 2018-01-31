@@ -73,7 +73,7 @@ public class FeedAdapter extends ArrayAdapter<Pronostico> {
         viewHolder.textViewMatch.setTextColor(getContext().getResources().getColor(R.color.colorPrimaryDark));
 
         // Return the completed view to render on screen
-        return convertView;
+        return result;
 
     }
 

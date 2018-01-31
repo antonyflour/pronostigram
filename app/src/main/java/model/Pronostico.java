@@ -12,13 +12,13 @@ public class Pronostico {
     private String id;
     private String creator;
     private String descrizione;
-    private Match match;
+    private String match;
     private String esito;
     private List<String> followers;
 
     public Pronostico() {}
 
-    public Pronostico(String id, String creator, String descrizione, Match match, String esito) {
+    public Pronostico(String id, String creator, String descrizione, String match, String esito) {
         this.id = id;
         this.creator = creator;
         this.descrizione = descrizione;
@@ -51,11 +51,11 @@ public class Pronostico {
         this.descrizione = descrizione;
     }
 
-    public Match getMatch() {
+    public String getMatch() {
         return match;
     }
 
-    public void setMatch(Match match) {
+    public void setMatch(String match) {
         this.match = match;
     }
 
