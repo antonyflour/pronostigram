@@ -99,10 +99,10 @@ public class LoginActivity extends AppCompatActivity {
 
         mLoginFormView = findViewById(R.id.login_form);
 
-        //mProgressView = findViewById(R.id.login_progress);
+        mProgressView = findViewById(R.id.login_progress);
 
-        mProgressView = new util.FakeProgressBar(this);
-        mProgressView.setId(R.id.login_progress);
+        //mProgressView = new util.FakeProgressBar(this);
+        //mProgressView.setId(R.id.login_progress);
     }
 
 
@@ -165,6 +165,7 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("Login", "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            showProgress(false);
                             startActivity(new Intent(LoginActivity.this, FeedActivity.class));
                             finish();
                         } else {

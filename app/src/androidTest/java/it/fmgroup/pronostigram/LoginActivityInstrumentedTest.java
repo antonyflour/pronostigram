@@ -1,11 +1,14 @@
 package it.fmgroup.pronostigram;
 
+import android.graphics.drawable.Drawable;
 import android.support.test.espresso.ViewInteraction;
 import android.support.test.espresso.intent.Intents;
 import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.widget.ProgressBar;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -68,6 +71,11 @@ public class LoginActivityInstrumentedTest {
 
         onView(withId(R.id.email_sign_in_button)).check(matches(isDisplayed()));
         onView(withId(R.id.email_sign_in_button)).perform(click());
+
+        Drawable notAnimatedDrawable = ContextCompat.getDrawable(mActivityRule.getActivity(), R.drawable.ic_plus);
+        ((ProgressBar) mActivityRule.getActivity().findViewById(R.id.login_progress)).setIndeterminateDrawable(notAnimatedDrawable);
+
+        //onView(withId(R.id.progress_bar)).check(matches(isDisplayed()));
 
         onView(withId(R.id.login_form)).check(matches(not(isDisplayed())));
 
