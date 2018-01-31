@@ -68,6 +68,9 @@ public class RegistrationActivityInstrumentedTest {
     @Test
     public void testCompilazione() throws Exception{
 
+        mActivityRule.getActivity().mProgressView = new util.FakeProgressBar(mActivityRule.getActivity());
+        mActivityRule.getActivity().mProgressView.setId(R.id.registration_progress);
+
         ViewInteraction editTextNome = onView(allOf(withId(R.id.text_nome)));
         editTextNome.perform(replaceText("Antonio"));
         editTextNome.perform(closeSoftKeyboard());

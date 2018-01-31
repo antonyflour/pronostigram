@@ -8,6 +8,7 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.view.View;
 import android.widget.ProgressBar;
 
 import org.junit.Rule;
@@ -61,6 +62,9 @@ public class LoginActivityInstrumentedTest {
     @Test
     public void testCompilazione() throws Exception{
 
+        mActivityRule.getActivity().mProgressView = new util.FakeProgressBar(mActivityRule.getActivity());
+        mActivityRule.getActivity().mProgressView.setId(R.id.login_progress);
+
         ViewInteraction editTextEmail = onView(allOf(withId(R.id.email)));
         editTextEmail.perform(replaceText("antonio@ciao.it"));
         editTextEmail.perform(closeSoftKeyboard());
@@ -72,8 +76,7 @@ public class LoginActivityInstrumentedTest {
         onView(withId(R.id.email_sign_in_button)).check(matches(isDisplayed()));
         onView(withId(R.id.email_sign_in_button)).perform(click());
 
-        Drawable notAnimatedDrawable = ContextCompat.getDrawable(mActivityRule.getActivity(), R.drawable.ic_plus);
-        ((ProgressBar) mActivityRule.getActivity().findViewById(R.id.login_progress)).setIndeterminateDrawable(notAnimatedDrawable);
+
 
         //onView(withId(R.id.progress_bar)).check(matches(isDisplayed()));
 

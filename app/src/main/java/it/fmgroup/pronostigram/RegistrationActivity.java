@@ -52,7 +52,7 @@ public class RegistrationActivity extends AppCompatActivity {
     private AutoCompleteTextView confirmEmailView;
     private EditText passwordView;
     private EditText confirmPasswordView;
-    private View mProgressView;
+    public View mProgressView;
     private View mLoginFormView;
 
     @Override
@@ -93,9 +93,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
         mLoginFormView = findViewById(R.id.registration_form);
 
-        //mProgressView = findViewById(R.id.registration_progress);
-        mProgressView = new util.FakeProgressBar(this);
-        mProgressView.setId(R.id.registration_progress);
+        mProgressView = findViewById(R.id.registration_progress);
     }
 
 
