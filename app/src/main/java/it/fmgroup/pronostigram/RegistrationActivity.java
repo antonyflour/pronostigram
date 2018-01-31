@@ -277,7 +277,6 @@ public class RegistrationActivity extends AppCompatActivity {
                             Log.d(TAG, "createUserWithEmail:success");
                             user = mAuth.getCurrentUser();
                             User u = new User(Util.generateUsername(mEmail),mEmail,mPassword,mName,mSurname,0,0);
-                            Log.d("CIAO",u.toString());
                             reference = database.getReference("users/");
                             reference.child(Util.generateUsername(mEmail)).setValue(u);
                             startActivity(new Intent(RegistrationActivity.this.getApplicationContext(),FeedActivity.class));
