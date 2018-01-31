@@ -26,6 +26,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -33,6 +34,7 @@ import java.util.List;
 
 import model.Match;
 import model.Pronostico;
+import model.Util;
 
 public class FeedActivity extends AppCompatActivity {
 
@@ -44,6 +46,10 @@ public class FeedActivity extends AppCompatActivity {
     private FirebaseUser currentUser;
 
     private FirebaseDatabase database;
+    private List<Pronostico> pronostici = new ArrayList<>();
+    private List<Match> incontri = new ArrayList<>();
+    private FeedAdapter adapter;
+    private ListView listViewFeed;
 
 
     @Override
@@ -52,7 +58,23 @@ public class FeedActivity extends AppCompatActivity {
         setContentView(R.layout.activity_feed);
 
 
+
+        mAuth = FirebaseAuth.getInstance();
+        mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                currentUser = firebaseAuth.getCurrentUser();
+                if (currentUser == null)
+                    Toast.makeText(FeedActivity.this, "UTENTE NULLO", Toast.LENGTH_LONG).show();
+                else
+                    Toast.makeText(FeedActivity.this, currentUser.getEmail(), Toast.LENGTH_LONG).show();
+            }
+        });
+
         database = FirebaseDatabase.getInstance();
+
+        downloadMatches();
+        downloadPronostici();
 
         buttonProfile = (ImageButton) findViewById(R.id.button_profile);
         buttonProfile.setOnClickListener(new View.OnClickListener() {
@@ -84,27 +106,26 @@ public class FeedActivity extends AppCompatActivity {
         }
         */
 
-        ListView listViewFeed = (ListView) findViewById(R.id.list_view_feed);
-
+        listViewFeed = (ListView) findViewById(R.id.list_view_feed);
         //ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
          //       R.layout.list_item, R.id.textview_match, values);
 
 
+        /*
         List<Pronostico> listPronostici = new ArrayList<Pronostico>();
         List<Match>  listMatch = new ArrayList<Match>();
-
         for(int i=0; i<100; i++){
             listPronostici.add(new Pronostico( String.valueOf(i),"boh", "SquadraCasa - SquadraOspite "+i, null, "1X"));
             listMatch.add(new Match("Squadra1", "Squadra2", new SimpleDateFormat("dd/MM/yyyy").format(new Date())));
         }
-
-
         FeedAdapter adapter = new FeedAdapter(this, listPronostici, listMatch);
-
+*/
+        adapter = new FeedAdapter(this, pronostici, incontri);
         // Assign adapter to ListView
         listViewFeed.setAdapter(adapter);
     }
 
+/*
     @Override
     public void onStart() {
         super.onStart();
@@ -123,6 +144,7 @@ public class FeedActivity extends AppCompatActivity {
 
 
     }
+*/
 
     //prova
     public void onButtonShowPopupWindowClick(View view) {
@@ -197,18 +219,22 @@ public class FeedActivity extends AppCompatActivity {
 */
     }
 
-/*
-    private List<Match> downloadMatches(){
-        List<Match>  listMatch = new ArrayList<Match>();
-        DatabaseReference ref = database.getReference("matches");
 
+    private void downloadMatches(){
+        DatabaseReference ref = database.getReference("matches");
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for ( DataSnapshot ds : dataSnapshot.getChildren()){
                     Match m = ds.getValue(Match.class);
-                    if (m.getDataMatch().before(new Date()))
-                        listMatch.add(m);
+                    try {
+                        if (Util.isBefore(m.getDataMatch(),new Date()))
+                            incontri.add(m);
+                    } catch (ParseException e) {
+                        Toast.makeText(FeedActivity.this, "Errore nella data", Toast.LENGTH_SHORT).show();
+                        Log.e("ParseError", e.getMessage());
+                    }
+                    adapter.notifyDataSetChanged();
                 }
             }
 
@@ -217,10 +243,27 @@ public class FeedActivity extends AppCompatActivity {
 
             }
         });
-
-
-        return listMatch;
+        Log.d("Downlaod","Download Matches effettuato");
     }
-*/
+
+    private void downloadPronostici(){
+        DatabaseReference ref = database.getReference("pronostici");
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for ( DataSnapshot ds : dataSnapshot.getChildren()){
+                    Pronostico p = ds.getValue(Pronostico.class);
+                    pronostici.add(p);
+                    adapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        Log.d("Downlaod","Download Pronostici effettuato");
+    }
 
 }
