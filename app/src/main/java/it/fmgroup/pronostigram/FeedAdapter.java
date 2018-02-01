@@ -47,6 +47,7 @@ public class FeedAdapter extends ArrayAdapter<Pronostico> {
         // Get the data item for this position
         Pronostico pronostico = getItem(position);
         // Check if an existing view is being reused, otherwise inflate the view
+        Match m = getMatchByPronostico(pronostico);
         ViewHolder viewHolder; // view lookup cache stored in tag
         final View result;
 
@@ -69,8 +70,13 @@ public class FeedAdapter extends ArrayAdapter<Pronostico> {
             result=convertView;
         }
 
-        viewHolder.textViewMatch.setText(pronostico.getDescrizione());
-        viewHolder.textViewMatch.setTextColor(getContext().getResources().getColor(R.color.colorPrimaryDark));
+        if(m != null){
+            viewHolder.textViewMatch.setText(m.toString());
+            viewHolder.textViewMatch.setTextColor(getContext().getResources().getColor(R.color.colorPrimaryDark));
+            viewHolder.textViewDataMatch.setText(m.getDataMatch());
+            viewHolder.textViewEsito.setText(pronostico.getEsito());
+        }
+
 
         // Return the completed view to render on screen
         return result;
@@ -78,6 +84,13 @@ public class FeedAdapter extends ArrayAdapter<Pronostico> {
     }
 
 
+    private Match getMatchByPronostico(Pronostico p){
+        for (Match m : this.match){
+            if ( m.getMatchID().equalsIgnoreCase(p.getMatch()))
+                return m;
+        }
+        return null;
+    }
 
 
 

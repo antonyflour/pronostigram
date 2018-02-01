@@ -228,8 +228,9 @@ public class FeedActivity extends AppCompatActivity {
                 for ( DataSnapshot ds : dataSnapshot.getChildren()){
                     Match m = ds.getValue(Match.class);
                     try {
-                        if (Util.isBefore(m.getDataMatch(),new Date()))
+                        if (!Util.isBefore(m.getDataMatch(),new Date())){
                             incontri.add(m);
+                        }
                     } catch (ParseException e) {
                         Toast.makeText(FeedActivity.this, "Errore nella data", Toast.LENGTH_SHORT).show();
                         Log.e("ParseError", e.getMessage());
