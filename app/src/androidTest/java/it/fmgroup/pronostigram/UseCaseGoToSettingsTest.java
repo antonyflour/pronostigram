@@ -1,16 +1,11 @@
 package it.fmgroup.pronostigram;
 
-import android.graphics.drawable.Drawable;
 import android.support.test.espresso.ViewInteraction;
-import android.support.test.espresso.intent.Intents;
 import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.support.v4.content.ContextCompat;
-import android.util.Log;
-import android.view.View;
-import android.widget.ProgressBar;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,6 +17,7 @@ import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.Matchers.allOf;
 
@@ -32,35 +28,12 @@ import static org.hamcrest.Matchers.allOf;
  */
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class LoginActivityInstrumentedTest {
+public class UseCaseGoToSettingsTest {
 
     @Rule public ActivityTestRule<LoginActivity> mActivityRule = new ActivityTestRule<LoginActivity>(LoginActivity.class);
 
-
-    @Test
-    public void testLayoutLogin() throws Exception {
-        onView(withId(R.id.textview_login)).check(matches(isDisplayed()));
-        onView(withId(R.id.email)).check(matches(isDisplayed()));
-        onView(withId(R.id.password)).check(matches(isDisplayed()));
-        onView(withId(R.id.email_sign_in_button)).check(matches(isDisplayed()));
-    }
-
-    @Test
-    public void testEmptyForm() throws Exception {
-        onView(withId(R.id.email_sign_in_button)).check(matches(isDisplayed()));
-        onView(withId(R.id.email_sign_in_button)).perform(click());
-        onView(withId(R.id.login_form)).check(matches(isDisplayed()));
-
-    }
-
-    @Test
-    public void testProgress() throws Exception {
-        onView(withId(R.id.login_progress)).check(matches(not(isDisplayed())));
-    }
-
-
-    @Test
-    public void testCompilazione() throws Exception{
+    @Before
+    public void testLoginCase() throws Exception {
 
         mActivityRule.getActivity().mProgressView = new util.FakeProgressBar(mActivityRule.getActivity());
         mActivityRule.getActivity().mProgressView.setId(R.id.login_progress);
@@ -78,5 +51,19 @@ public class LoginActivityInstrumentedTest {
 
         onView(withId(R.id.login_form)).check(matches(not(isDisplayed())));
 
+        Thread.sleep(5000);
+        onView(withId(R.id.list_view_feed)).check(matches(isDisplayed()));
+
+        onView(withId(R.id.button_settings)).check(matches(isDisplayed()));
+        onView(withId(R.id.button_settings)).perform(click());
+
+        Thread.sleep(5000);
+
     }
+
+    @Test
+    public void testViewSettings() throws Exception {
+        onView(allOf(withText("General"))).check(matches(isDisplayed()));
+    }
+
 }

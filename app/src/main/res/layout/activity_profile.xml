@@ -29,7 +29,7 @@
             android:scaleY="1"/>
 
         <TextView
-            android:id="@+id/textview_feeds_list"
+            android:id="@+id/textview_profile"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="50"
