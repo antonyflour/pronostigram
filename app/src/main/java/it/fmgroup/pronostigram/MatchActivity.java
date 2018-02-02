@@ -22,7 +22,7 @@ import java.util.Date;
 import java.util.List;
 
 import model.Match;
-import model.Util;
+import util.Util;
 
 public class MatchActivity extends AppCompatActivity {
 
@@ -41,11 +41,6 @@ public class MatchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_match);
 
-/*
-        Match m1 = new Match(3,"napoli3", "juve3", new Date());
-        Match m2 = new Match(2,"napoli2", "juve2", new Date());
-        Match m3 = new Match(1,"napoli1", "juve1", new Date());
-*/
         database = FirebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
         currentUser = auth.getCurrentUser();
@@ -53,11 +48,6 @@ public class MatchActivity extends AppCompatActivity {
         lvMatches = (ListView) this.findViewById(R.id.listViewMatches);
         listMatch = new ArrayList<Match>();
 
-        /*
-        listMatch.add(m1);
-        listMatch.add(m2);
-        listMatch.add(m3);
-*/
         matchAdapter = new MatchAdapter(this, listMatch);
         lvMatches.setAdapter(matchAdapter);
         database.getReference("matches/").addListenerForSingleValueEvent(new ValueEventListener() {

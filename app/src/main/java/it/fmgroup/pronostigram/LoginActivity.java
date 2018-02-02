@@ -101,8 +101,6 @@ public class LoginActivity extends AppCompatActivity {
 
         mProgressView = findViewById(R.id.login_progress);
 
-        //mProgressView = new util.FakeProgressBar(this);
-        //mProgressView.setId(R.id.login_progress);
     }
 
 
