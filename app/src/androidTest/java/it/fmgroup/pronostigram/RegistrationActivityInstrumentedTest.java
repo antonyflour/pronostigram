@@ -65,7 +65,7 @@ public class RegistrationActivityInstrumentedTest {
     }
 
 
-    @Test
+    @LargeTest
     public void testCompilazione() throws Exception{
 
         mActivityRule.getActivity().mProgressView = new util.FakeProgressBar(mActivityRule.getActivity());
@@ -99,6 +99,10 @@ public class RegistrationActivityInstrumentedTest {
         onView(withId(R.id.button_reg_confirm)).perform(click());
 
         onView(withId(R.id.registration_form)).check(matches(not(isDisplayed())));
+
+        Thread.sleep(5000);
+
+        onView(withId(R.id.list_view_feed)).check(matches(isDisplayed()));
 
     }
 }

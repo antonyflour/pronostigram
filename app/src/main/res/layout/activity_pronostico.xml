@@ -13,16 +13,16 @@
 
         <TextView
             android:id="@+id/textView_scegli_pronostico"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
             android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
             android:layout_marginTop="20dp"
             android:gravity="center_vertical"
             android:textAlignment="center"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="30sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textView4"
@@ -52,7 +52,7 @@
             android:layout_marginBottom="36dp"
             android:clickable="false"
             android:onClick="onClickConfermaPronostico"
-            android:text="Button" />
+            android:text="Condividi" />
 
         <TextView
             android:id="@+id/textView5"
