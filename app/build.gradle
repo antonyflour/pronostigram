@@ -26,10 +26,16 @@ android {
     }
 }
 
+tasks.whenTaskAdded { task ->
+    if(task.name.contains("Test"))
+    {
+        //this is what you need
+        task.enabled = false
+    }
+}
+
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
-
-
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:26.1.0'
