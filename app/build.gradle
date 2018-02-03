@@ -26,13 +26,13 @@ android {
     }
 }
 
-tasks.whenTaskAdded { task ->
-    if(task.name.contains("Test"))
-    {
-        //this is what you need
-        task.enabled = false
-    }
-}
+//tasks.whenTaskAdded { task ->
+//    if(task.name.contains("Test"))
+//    {
+//        //this is what you need
+//        task.enabled = false
+//    }
+//}
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
